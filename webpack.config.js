@@ -1,8 +1,10 @@
+const path = require("path");
+
 module.exports = (env, argv) => {
   return {
-    devtool: 'source-map',
+    devtool: "source-map",
     entry: {
-      './static/main.js': './src/main.js'
+      "./static/main.js": "./src/main.js",
     },
     module: {
       rules: [
@@ -10,26 +12,31 @@ module.exports = (env, argv) => {
           test: /\.js$/,
           use: [
             {
-              loader: 'babel-loader',
+              loader: "babel-loader",
               options: {
-                plugins: ['babel-plugin-emotion'],
-                presets: ['@babel/preset-react']
-              }
-            }
-          ]
-        }
-      ]
+                plugins: ["babel-plugin-emotion"],
+                presets: ["@babel/preset-react"],
+              },
+            },
+          ],
+        },
+      ],
     },
     node: {
       __dirname: false,
-      __filename: false
+      __filename: false,
     },
     output: {
-      filename: '[name]',
-      path: __dirname + '/bin'
+      filename: "[name]",
+      path: __dirname + "/bin",
     },
     resolve: {
-      extensions: ['.js']
-    }
+      extensions: [".js"],
+    },
+    devServer: {
+      contentBase: path.join(__dirname, "bin"),
+      compress: true,
+      port: 8085,
+    },
   };
 };
